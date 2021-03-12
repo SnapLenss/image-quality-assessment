@@ -6,8 +6,11 @@ import numpy as np
 
 
 def load_json(file_path):
-    with open(file_path, 'r') as f:
-        return json.load(f)
+    try:
+        with open(file_path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
 
 
 def save_json(data, target_file):
@@ -36,7 +39,10 @@ def random_horizontal_flip(img):
 
 
 def load_image(img_file, target_size):
-    return np.asarray(tf.keras.preprocessing.image.load_img(img_file, target_size=target_size))
+    try:
+        return np.asarray(tf.keras.preprocessing.image.load_img(img_file, target_size=target_size))
+    except FileNotFoundError:
+        return None
 
 
 def normalize_labels(labels):

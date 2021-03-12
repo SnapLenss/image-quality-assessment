@@ -6,6 +6,7 @@ import argparse
 from utils.utils import calc_mean_score, save_json
 from handlers.model_builder import Nima
 from handlers.data_generator import TestDataGenerator
+from utils.constants import MEAN_SCORE_THRESHOLD
 
 
 def image_file_to_json(img_path):
@@ -53,6 +54,9 @@ def main(base_model_name, weights_file, image_source, predictions_file, img_form
     # calc mean scores and add to samples
     for i, sample in enumerate(samples):
         sample['mean_score_prediction'] = calc_mean_score(predictions[i])
+        sample['surface'] = False
+        if sample['mean_score_prediction'] >= MEAN_SCORE_THRESHOLD:
+            sample['surface'] = True
 
     print(json.dumps(samples, indent=2))
 
