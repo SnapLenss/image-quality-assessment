@@ -41,7 +41,8 @@ def random_horizontal_flip(img):
 def load_image(img_file, target_size):
     try:
         return np.asarray(tf.keras.preprocessing.image.load_img(img_file, target_size=target_size))
-    except FileNotFoundError:
+    except Exception:
+        # File not found or other error
         return None
 
 
