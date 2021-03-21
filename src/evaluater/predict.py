@@ -17,7 +17,9 @@ def image_file_to_json(img_path):
 
 
 def image_dir_to_json(img_dir, img_type='jpg'):
-    img_paths = [f for f in os.listdir(img_dir) if os.path.isfile(os.path.join(img_dir, f)) and f.lower().endswith(img_type)]
+    img_paths = [
+        f for f in os.listdir(img_dir) if os.path.isfile(os.path.join(img_dir, f)) and f.lower().endswith(img_type)
+    ]
 
     samples = []
     for img_path in img_paths:
