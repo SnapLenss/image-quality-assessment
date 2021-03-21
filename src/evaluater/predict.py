@@ -17,7 +17,7 @@ def image_file_to_json(img_path):
 
 
 def image_dir_to_json(img_dir, img_type='jpg'):
-    img_paths = glob.glob(os.path.join(img_dir, '*.'+img_type))
+    img_paths = [f for f in os.listdir(img_dir) if os.path.isfile(os.path.join(img_dir, f)) and f.lower().endswith(img_type)]
 
     samples = []
     for img_path in img_paths:
@@ -58,6 +58,7 @@ def main(base_model_name, weights_file, image_source, predictions_file, img_form
         if sample['mean_score_prediction'] >= MEAN_SCORE_THRESHOLD:
             sample['surface'] = True
 
+    samples.sort(key=lambda s: s['mean_score_prediction'])
     print(json.dumps(samples, indent=2))
 
     if predictions_file is not None:
