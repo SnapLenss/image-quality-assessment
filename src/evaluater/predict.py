@@ -1,6 +1,4 @@
-
 import os
-import glob
 import json
 import argparse
 from utils.utils import calc_mean_score, save_json
